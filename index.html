@@ -344,6 +344,8 @@
         </div>
     </header>
 
+    <!-- Search Filter Buttons -->
+
     <main>
         <div class="container">
             <div class="search-filter">
@@ -364,6 +366,8 @@
             </div>
         </div>
     </main>
+
+    <!-- Footer -->
 
     <footer>
         <div class="container">
@@ -452,7 +456,10 @@
                 return;
             }
 
-            const templatesHTML = filteredTemplates.map(template => `
+            const templatesHTML = filteredTemplates.map(template => {
+                // Remove duplicate tags (category already shown)
+                const uniqueTags = template.tags ? template.tags.filter(tag => tag !== template.category) : [];
+                return `
                 <div class="template-card" data-id="${template.id}">
                     <div class="template-preview" style="${template.preview ? `background-image: url('${template.preview}'); background-size: cover; background-position: center;` : ''}">
                         ${!template.preview ? '<span>Preview</span>' : ''}
@@ -462,7 +469,7 @@
                         <p class="template-description">${template.description}</p>
                         <div class="template-tags">
                             <span class="tag">${template.category}</span>
-                            ${template.tags ? template.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
+                            ${uniqueTags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
                         <div class="template-actions">
                             <a href="${template.demoUrl}" class="btn btn-primary" target="_blank">Live Demo</a>
@@ -470,7 +477,8 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
 
             templatesContainer.innerHTML = `<div class="templates-grid">${templatesHTML}</div>`;
         }
