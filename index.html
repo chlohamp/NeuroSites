@@ -533,6 +533,7 @@
                                 console.log(`Processing template: ${templateDir.name}`);
                                 
                                 // Create basic template info
+                                const baseUrl = window.location.origin + window.location.pathname.replace(/\/index\.html$/, '');
                                 let templateInfo = {
                                     id: templateDir.name,
                                     title: templateDir.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
@@ -540,7 +541,7 @@
                                     category: categoryDir.name.replace('-pages', '').replace('package-', '').replace('-', ''),
                                     tags: [categoryDir.name.replace('-pages', '').replace('package-', '').replace('-', '')],
                                     preview: null,
-                                    demoUrl: `templates/${categoryDir.name}/${templateDir.name}/`,
+                                    demoUrl: `${baseUrl}/templates/${categoryDir.name}/${templateDir.name}/`,
                                     downloadUrl: `https://github.com/NeuroHackademy2025/NeuroSites/tree/main/templates/${categoryDir.name}/${templateDir.name}`
                                 };
                                 
